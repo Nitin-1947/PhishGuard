@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PhishGuard - Upload Email</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css">
+  </head>
+  <body>
+    <div class="container py-5">
+      <div class="text-center mb-4">
+        <h1 class="display-6">PhishGuard</h1>
+        <p class="text-muted">Upload an email file or screenshot to analyze it instantly — no login required.</p>
+      </div>
+
+      {% if error %}
+      <div class="alert alert-danger">{{ error }}</div>
+      {% endif %}
+
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <form action="{{ url_for('analyze') }}" method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+              <label for="file" class="form-label">Choose .eml or image file</label>
+              <input class="form-control" type="file" id="file" name="file" accept=".eml,image/*" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Analyze Now</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="row mt-4">
+        <div class="col-lg-6">
+          <div class="card mb-3 shadow-sm">
+            <div class="card-body">
+              <h5>How it works</h5>
+              <ul>
+                <li>Upload a raw email file or screenshot.</li>
+                <li>The site extracts text, headers, and URLs.</li>
+                <li>A risk score is generated immediately.</li>
+                <li>No database, no authentication, no persistence.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="card mb-3 shadow-sm">
+            <div class="card-body">
+              <h5>Supported files</h5>
+              <p class="mb-1"><strong>Email:</strong> .eml</p>
+              <p class="mb-1"><strong>Images:</strong> .png, .jpg, .jpeg, .bmp, .gif</p>
+              <p class="text-muted small">For screenshots, install Tesseract OCR to enable text extraction.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

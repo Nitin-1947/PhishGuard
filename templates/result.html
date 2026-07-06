@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PhishGuard - Analysis Result</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css">
+  </head>
+  <body>
+    <div class="container py-5">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+          <h1 class="h3">Analysis Result</h1>
+          <p class="text-muted">Upload type: {{ analysis.file_type | capitalize }}</p>
+        </div>
+        <a href="{{ url_for('index') }}" class="btn btn-outline-secondary">Analyze Another</a>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="card mb-3 shadow-sm">
+            <div class="card-body text-center">
+              <h2 class="display-5 text-{{ analysis.badge }}">{{ analysis.risk_score }}</h2>
+              <p class="mb-0">Risk Level</p>
+              <span class="badge bg-{{ analysis.badge }} fs-6">{{ analysis.risk_level }}</span>
+            </div>
+          </div>
+
+          <div class="card mb-3 shadow-sm">
+            <div class="card-body">
+              <h5>Summary</h5>
+              <ul class="mb-0">
+                {% for reason in analysis.reasons %}
+                <li>{{ reason }}</li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-8">
+          <div class="card mb-3 shadow-sm">
+            <div class="card-body">
+              <h5>Headers</h5>
+              <table class="table table-sm">
+                <tbody>
+                  {% for key, value in analysis.headers.items() %}
+                  <tr>
+                    <th class="w-25">{{ key }}</th>
+                    <td>{{ value or 'N/A' }}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="card mb-3 shadow-sm">
+            <div class="card-body">
+              <h5>Extracted URLs</h5>
+              {% if analysis.urls %}
+              <ul>
+                {% for url in analysis.urls %}
+                <li><a href="{{ url }}" target="_blank" rel="noreferrer">{{ url }}</a></li>
+                {% endfor %}
+              </ul>
+              {% else %}
+              <p class="mb-0">No URLs were found in the extracted text.</p>
+              {% endif %}
+            </div>
+          </div>
+
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h5>{{ analysis.text_source }}</h5>
+              <pre class="analysis-text">{{ analysis.snippet }}</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
