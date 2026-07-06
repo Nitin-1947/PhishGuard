@@ -2,6 +2,8 @@
 
 A lightweight Flask website for phishing email analysis that accepts `.eml` files or uploaded email screenshots.
 
+An intelligent email phishing detection platform built with Flask and Python. It analyzes email headers, URLs, attachments, and message content using machine learning and security rules to detect phishing attempts and generate comprehensive threat reports.
+
 ## Features
 
 - Direct `.eml` email upload
@@ -38,20 +40,3 @@ http://127.0.0.1:5000
 - Image OCR requires Tesseract OCR installed on your machine.
 - `.eml` files are parsed directly and no data is stored.
 
-## Recommended GitHub Upload
-
-1. Create a new GitHub repository.
-2. Add the remote URL:
-
-   ```bash
-git remote add origin https://github.com/<your-username>/<your-repo>.git
-```
-
-3. Push your code:
-
-   ```bash
-git add .
-git commit -m "Initial commit"
-git branch -M main
-git push -u origin main
-```
